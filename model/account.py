@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 
-class account:
+class Account:
     def __init__(self,id:int,user_name:str,password:str):
         self.__id=id
         self.__user_name=user_name
@@ -45,7 +45,15 @@ class account:
         print(self.__password)
         print(self.__balance)
         
+    def getBalance(self):
+        return self.__balance
+    
+    def setBalance(self,balance : int):
+        self.__balance=balance
+        
+    def getId(self):
+        return self.__id
+        
+    def getPassword(self):
+        return self.__password
 
-
-a=account(101,"santhosh","san2905")
-a.getUserById()
