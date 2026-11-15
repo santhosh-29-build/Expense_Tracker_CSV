@@ -123,7 +123,7 @@ class Service(Account):
             reader=csv.DictReader(file)
             
             for row in reader:
-                if row["Id"]==id:
+                if int(row["Id"])==id:
                     return row
             
     def check_balance(user_id: int):
