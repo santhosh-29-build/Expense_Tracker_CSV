@@ -39,11 +39,6 @@ class Account:
                 writer=csv.writer(file)
                 writer.writerow(["Transaction_Id","Credit/Debit","Amount","Balance"])
         
-    def getUserById(self):
-        print(self.__id)
-        print(self.__user_name)
-        print(self.__password)
-        print(self.__balance)
         
     def getBalance(self):
         return self.__balance
