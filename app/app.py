@@ -485,7 +485,7 @@ def open_dashboard(user_id):
         font=(FONT, 24, "bold")
     ).pack(anchor="w")
     tk.Label(
-        brand, text="PULSE", bg=COLORS["sidebar"], fg="#FFFFFF",
+        brand, text="Dollar", bg=COLORS["sidebar"], fg="#FFFFFF",
         font=(FONT, 16, "bold")
     ).pack(anchor="w", pady=(8, 0))
     tk.Label(
@@ -635,7 +635,7 @@ def login():
 def open_register():
     register_window = tk.Toplevel(root)
     register_window.title("Create Account")
-    place_window(register_window, "400x400")
+    place_window(register_window, "800x600")
     register_window.configure(bg=COLORS["page"])
     register_window.transient(root)
     register_window.grab_set()
@@ -688,7 +688,7 @@ def open_register():
                 show_info("Success", "Registration successful. You can now log in.", register_window)
                 register_window.destroy()
             else:
-                show_error("Registration failed", "User ID already exists. Try logging in.", register_window)
+                show_error("Registration failed", "User ID already exists. Try Diiferent ID.", register_window)
         except Exception as error:
             show_error("Registration error", str(error), register_window)
 
