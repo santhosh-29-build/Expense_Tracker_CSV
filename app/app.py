@@ -417,6 +417,7 @@ def show_amount_dialog(user_id, transaction_type):
     button.pack(fill="x", pady=(2, 0))
 
 
+
 def show_account_info(user_id):
     try:
         account = Service.account_info(user_id)
@@ -435,24 +436,73 @@ def show_account_info(user_id):
 
     page = tk.Frame(window, bg=COLORS["page"], padx=26, pady=24)
     page.pack(fill="both", expand=True)
-    make_heading(page, "Account Information", "Your registered account details")
+
+    make_heading(page, "Account Information",
+                 "Your registered account details")
 
     card, body = make_card(page, padding=18)
     card.pack(fill="both", expand=True, pady=(18, 0))
 
     for index, (key, value) in enumerate(account.items()):
         row_bg = COLORS["surface"] if index % 2 == 0 else COLORS["surface_alt"]
+
         row = tk.Frame(body, bg=row_bg, padx=12, pady=11)
         row.pack(fill="x", pady=2)
+
         tk.Label(
-            row, text=f"{str(key).replace('_', ' ').title()}",
-            bg=row_bg, fg=COLORS["muted"], font=(FONT, 9, "bold"),
-            width=18, anchor="w"
+            row,
+            text=str(key).replace("_", " ").title(),
+            bg=row_bg,
+            fg=COLORS["muted"],
+            font=(FONT, 9, "bold"),
+            width=18,
+            anchor="w"
         ).pack(side="left")
-        tk.Label(
-            row, text=str(value), bg=row_bg, fg=COLORS["text"],
-            font=(FONT, 10), anchor="w"
-        ).pack(side="left", fill="x", expand=True)
+
+        if key.lower() == "password":
+            visible = tk.BooleanVar(value=False)
+
+            password_label = tk.Label(
+                row,
+                text="*" * len(str(value)),
+                bg=row_bg,
+                fg=COLORS["text"],
+                font=(FONT, 10),
+                anchor="w"
+            )
+            password_label.pack(side="left", fill="x", expand=True)
+
+            def toggle_password(label=password_label, val=value, state=visible):
+                state.set(not state.get())
+                label.config(
+                    text=str(val) if state.get() else "*" * len(str(val))
+                )
+                eye_button.config(
+                    text="🙈" if state.get() else "👁"
+                )
+
+            eye_button = tk.Button(
+                row,
+                text="👁",
+                command=toggle_password,
+                bg=row_bg,
+                fg=COLORS["text"],
+                relief="flat",
+                bd=0,
+                cursor="hand2",
+                font=(FONT, 11)
+            )
+            eye_button.pack(side="right")
+
+        else:
+            tk.Label(
+                row,
+                text=str(value),
+                bg=row_bg,
+                fg=COLORS["text"],
+                font=(FONT, 10),
+                anchor="w"
+            ).pack(side="left", fill="x", expand=True)
 
 
 def open_dashboard(user_id):
